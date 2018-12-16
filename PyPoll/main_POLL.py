@@ -27,6 +27,7 @@ with open(election_csv, newline="", encoding='utf-8') as csvfile:
    #Other variables
    voterID = []
    county = []
+   percents = []
    totalvotes = 0
    percent_votes = 0
    #Winner = []
@@ -44,6 +45,7 @@ with open(election_csv, newline="", encoding='utf-8') as csvfile:
    
    for candidate_name in candidate_votes:
        percent = round((candidate_votes[candidate_name]) / totalvotes, 2)
+       percents.append(percent)    
             
 print("ELection Results")
 print("_______________________________")        
@@ -54,7 +56,8 @@ print("Winner: Khan")
 
   
 #Zip lists together into a single tuple.
-cleaned_txt = zip(totalvotes, candidate_votes, percents)
+#cleaned_txt = zip(totalvotes, candidate_name, candidate_votes, percents)
+cleaned_txt = (totalvotes, candidate_name, candidate_votes, percents)
 #cleaned_txt2 = ()
 
 #Write the contents into a text file.
@@ -66,13 +69,13 @@ with open(output_file, "w", newline="") as datafile:
     writer = csv.writer(datafile)
 
     #Write the header row
-    writer.writerow(["Total Votes", "Candidate Name", "Number of Votes", "Percent of Votes"])
+    writer.writerow(["Total Votes", "Candidate Name", "Number of Votes", "Respective Percent of Votes"])
     
     #Write in zipped rows
-    writer.writerows(cleaned_txt)
+    #writer.writerows(cleaned_txt)
     
     #Write Summary Data
-    writer.writerow(["totalvotes", candidate_votes, percents])    
+    writer.writerow([totalvotes, candidate_votes, percents])    
     
     
     
